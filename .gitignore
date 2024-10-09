@@ -1,0 +1,36 @@
+# Logs
+fe/pharmacy-website/logs
+fe/pharmacy-website/*.log
+fe/pharmacy-website/npm-debug.log*
+fe/pharmacy-website/yarn-debug.log*
+fe/pharmacy-website/yarn-error.log*
+fe/pharmacy-website/pnpm-debug.log*
+fe/pharmacy-website/lerna-debug.log*
+
+fe/pharmacy-website/node_modules
+fe/pharmacy-website/dist
+fe/pharmacy-website/dist-ssr
+fe/pharmacy-website/*.local
+
+fe/pharmacy-website/node_modules/
+fe/pharmacy-website/build/
+fe/pharmacy-website/dist/
+fe/pharmacy-website/.env.local
+fe/pharmacy-website/.env.development.local
+fe/pharmacy-website/.env.test.local
+fe/pharmacy-website/.env.production.local
+
+be/pharmacy/PharmacyManagement/bin/
+be/pharmacy/PharmacyManagement/obj/
+be/pharmacy/PharmacyManagement/packages/
+
+# Editor directories and files
+.vscode/*
+!.vscode/extensions.json
+.idea
+.DS_Store
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
