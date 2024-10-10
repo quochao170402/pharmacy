@@ -1,9 +1,12 @@
-const FormulaIcon = () => {
+interface Props {
+  size?: number;
+}
+const FormulaIcon = ({ size }: Props) => {
   return (
     <svg
       fill="white"
-      height="24px"
-      width="24px"
+      height={size !== undefined ? size : 24}
+      width={size !== undefined ? size : 24}
       version="1.1"
       id="Capa_1"
       viewBox="0 0 229.997 229.997"

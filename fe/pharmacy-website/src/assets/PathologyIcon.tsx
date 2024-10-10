@@ -1,8 +1,12 @@
-const PathologyIcon = () => {
+interface Props {
+  size?: number;
+}
+
+const PathologyIcon = ({ size }: Props) => {
   return (
     <svg
-      width="24px"
-      height="24px"
+      width={size !== undefined ? size : 24}
+      height={size !== undefined ? size : 24}
       viewBox="0 0 24.00 24.00"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
