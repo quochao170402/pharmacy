@@ -34,3 +34,4 @@ be/pharmacy/PharmacyManagement/packages/
 *.njsproj
 *.sln
 *.sw?
+node_modules
