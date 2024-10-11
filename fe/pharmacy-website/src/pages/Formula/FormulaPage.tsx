@@ -1,5 +1,5 @@
 const FormulaPage = () => {
-  return <div>OrderPage</div>;
+  return <div>FormulaPage</div>;
 };
 
 export default FormulaPage;

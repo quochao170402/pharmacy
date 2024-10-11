@@ -4,7 +4,7 @@ interface Props {
 const FormulaIcon = ({ size }: Props) => {
   return (
     <svg
-      fill="white"
+      fill="black"
       height={size !== undefined ? size : 24}
       width={size !== undefined ? size : 24}
       version="1.1"
