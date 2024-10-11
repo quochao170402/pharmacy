@@ -2,14 +2,14 @@ import { Menu } from "antd";
 import { BiUser, BiUserPin } from "react-icons/bi";
 import { FiHome, FiShoppingCart, FiUser } from "react-icons/fi";
 import { Link, Route } from "react-router-dom";
-import FormulaIcon from "../../../assets/FormulaIcon";
-import PathologyIcon from "../../../assets/PathologyIcon";
-import CustomerPage from "../../Customer/CustomerPage";
-import Dashboard from "../../Dashboard/Dashboard";
-import FormulaPage from "../../Formula/FormulaPage";
-import OrderPage from "../../Order/OrderPage";
-import PathologyPage from "../../Pathology/PathologyPage";
-import { RouteConfig } from "../types";
+import FormulaIcon from "../assets/FormulaIcon";
+import PathologyIcon from "../assets/PathologyIcon";
+import CustomerPage from "../pages/Customer/CustomerPage";
+import Dashboard from "../pages/Dashboard/Dashboard";
+import FormulaPage from "../pages/Formula/FormulaPage";
+import OrderPage from "../pages/Order/OrderPage";
+import PathologyPage from "../pages/Pathology/PathologyPage";
+import { RouteConfig } from "../types/router";
 
 const useGetRouter = () => {
   const routers: RouteConfig[] = [

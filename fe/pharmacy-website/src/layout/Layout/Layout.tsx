@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import Footer from "../Footer/Footer";
 import Header from "../Header/Header";
-import Menu from "../Sidebar/components/Menu";
+import Menu from "../Menu/Menu";
 
 export interface LayoutProps {
   children: React.ReactNode;
@@ -13,10 +13,6 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
   return (
     <div className="flex min-h-screen">
       <div className="">
-        {/* <Sidebar
-          isExpanded={isSidebarExpanded}
-          toggleSidebar={() => setIsSidebarExpanded(!isSidebarExpanded)}
-        /> */}
         <Menu
           isExpanded={isSidebarExpanded}
           toggleSidebar={() => setIsSidebarExpanded(!isSidebarExpanded)}
