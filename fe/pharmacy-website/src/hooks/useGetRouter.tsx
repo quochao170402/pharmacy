@@ -59,6 +59,15 @@ const useGetRouter = () => {
     },
   ];
 
+  const breadcrumbNames: Record<string, string[]> = {
+    "/orders": ["Đơn hàng"],
+    "/users/customers": ["Người dùng", "Khách hàng"],
+    "/users/employees": ["Người dùng", "Bác sĩ"],
+    "/drugs": ["Thuốc"],
+    "/pathologies": ["Bệnh lý"],
+    "/formulas": ["Công thức"],
+  };
+
   const getBreadcrumbs = (
     location: string,
     routes: RouteConfig[]
@@ -112,7 +121,13 @@ const useGetRouter = () => {
     });
   };
 
-  return { routers, getBreadcrumbs, generateMenuItems, generateRoutes };
+  return {
+    routers,
+    breadcrumbNames,
+    getBreadcrumbs,
+    generateMenuItems,
+    generateRoutes,
+  };
 };
 
 export default useGetRouter;

@@ -8,7 +8,7 @@ interface Props<T> {
 export interface ColumnProps<T> {
   key: string;
   title: string | ReactElement;
-  render?: (column: ColumnProps<T>, item: T) => ReactElement;
+  render?: (column: ColumnProps<T>, item: T, index?: number) => ReactElement;
 }
 
 const Table = <T,>({ data, columns }: Props<T>) => {
@@ -28,17 +28,21 @@ const Table = <T,>({ data, columns }: Props<T>) => {
         <tr key={`row-${index}`}>
           {columns.map((column, index2) => {
             const value = column.render
-              ? column.render(column, row as T)
+              ? column.render(column, row as T, index)
               : (row[column.key as keyof typeof row] as string);
 
-            return <td key={`cell-${index2}`}>{value}</td>;
+            return (
+              <td className="pt-4" key={`cell-${index2}`}>
+                {value}
+              </td>
+            );
           })}
         </tr>
       );
     })
   );
   return (
-    <div className="p-4">
+    <div className="p-4 max-h-screen bg-white overflow-y-auto rounded-sm">
       <table className="table-auto w-full">
         <thead className="text-left">
           <tr>{headers}</tr>

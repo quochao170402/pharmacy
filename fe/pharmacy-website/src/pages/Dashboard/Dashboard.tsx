@@ -5,7 +5,6 @@ import BarChart from "../../components/Chart/BarChart";
 import Table, { ColumnProps } from "../../components/Table/Table";
 import { Customer } from "../../types/user";
 import { textToCurrency } from "../../utils/currency";
-import { customers } from "./dummy";
 
 const cards: DashboardCards[] = [
   {
@@ -64,11 +63,11 @@ const Dashboard = () => {
         ))}
       </div>
       <div className="flex flex-row mt-6">
-        <div className="basis-3/4">
+        <div className="basis-2/3">
           <BarChart type={"column"} />
         </div>
-        <div className="bg-white basis-1/4 rounded-lg">
-          <Table data={customers} columns={columns} />
+        <div className="bg-white basis-1/3 rounded-lg">
+          <Table data={[]} columns={columns} />
         </div>
       </div>
     </>
