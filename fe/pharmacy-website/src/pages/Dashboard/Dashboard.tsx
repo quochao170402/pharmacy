@@ -1,7 +1,11 @@
 import { FaMoneyBillAlt, FaUser } from "react-icons/fa";
 import { FiShoppingCart } from "react-icons/fi";
 import { RiPassExpiredFill } from "react-icons/ri";
+import BarChart from "../../components/Chart/BarChart";
+import Table, { ColumnProps } from "../../components/Table/Table";
+import { Customer } from "../../types/user";
 import { textToCurrency } from "../../utils/currency";
+import { customers } from "./dummy";
 
 const cards: DashboardCards[] = [
   {
@@ -27,6 +31,24 @@ const cards: DashboardCards[] = [
 ];
 
 const Dashboard = () => {
+  const columns: Array<ColumnProps<Customer>> = [
+    {
+      key: "name",
+      title: "Tên",
+    },
+    {
+      key: "gender",
+      title: "Giới tính",
+    },
+    {
+      key: "phone",
+      title: "Số điện thoại",
+      render: (_, record) => {
+        return <div className="text-blue-500 font-bold">{record.phone}</div>;
+      },
+    },
+  ];
+
   return (
     <>
       <div className="grid grid-cols-4 gap-6">
@@ -41,8 +63,13 @@ const Dashboard = () => {
           </div>
         ))}
       </div>
-      <div>
-        
+      <div className="flex flex-row mt-6">
+        <div className="basis-3/4">
+          <BarChart type={"column"} />
+        </div>
+        <div className="bg-white basis-1/4 rounded-lg">
+          <Table data={customers} columns={columns} />
+        </div>
       </div>
     </>
   );
