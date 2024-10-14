@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using PharmacyManagement.Context;
 using PharmacyManagement.Entities;
+using PharmacyManagement.Models.Categories;
 
 namespace PharmacyManagement.Controllers;
 
@@ -25,13 +26,33 @@ public class CategoryController : ControllerBase
     }
 
     [HttpPost]
-    public async Task<IActionResult> Add()
+    public async Task<IActionResult> Add([FromBody] AddCategoryRequest request)
     {
 
         var category = new Category
         {
-            Name = "Antibiotics",
-            Description = "Broad-spectrum antibiotic",
+            Name = request.Name,
+            Description = request.Description,
+        };
+
+        _context.Categories.Add(category);
+        await _context.SaveChangesAsync();
+
+        return Ok(category);
+    }
+
+
+    [HttpPut("{id:guid}")]
+    public async Task<IActionResult> Update([FromRoute] Guid id, [FromBody] AddCategoryRequest request)
+    {
+
+        var existing = await _context.Categories.FindAsync(id)
+            ?? throw new Exception("Không tìm thấy danh mục thuốc");
+
+        var category = new Category
+        {
+            Name = request.Name,
+            Description = request.Description,
         };
 
         _context.Categories.Add(category);
