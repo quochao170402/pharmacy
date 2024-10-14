@@ -1,5 +1,5 @@
 import { Category, Drug } from "./drug";
-import { Order } from "./order";
+import { Order, OrderItem } from "./order";
 import { Customer, Gender, User } from "./user";
 
 // List of Categories
@@ -99,60 +99,70 @@ export const users: User[] = [
   },
 ];
 
-// Combining them into Orders
-export const orders: Order[] = [
-  {
-    id: "order_001",
-    customer: customers[0],
-    drugId: [drugs[0].id, drugs[1].id], // Amoxicillin and Ibuprofen
-    quantity: 2,
-    createdAt: new Date("2024-10-12T10:15:00"),
-    user: users[0], // Dr. Smith
-    amount: 123000,
-  },
-  {
-    id: "order_002",
-    customer: customers[1],
-    drugId: [drugs[2].id], // Paracetamol
-    quantity: 1,
-    createdAt: new Date("2024-10-11T14:30:00"),
-    user: users[1], // Dr. Thompson
-    amount: 123000,
-  },
-  {
-    id: "order_003",
-    customer: customers[2],
-    drugId: [drugs[3].id, drugs[4].id], // Azithromycin and Aspirin
-    quantity: 3,
-    createdAt: new Date("2024-10-10T09:45:00"),
-    user: users[2], // Dr. Nguyen
-    amount: 123000,
-  },
-  {
-    id: "order_004",
-    customer: customers[0],
-    drugId: [drugs[0].id, drugs[1].id], // Amoxicillin and Ibuprofen
-    quantity: 2,
-    createdAt: new Date("2024-10-12T10:15:00"),
-    user: users[0], // Dr. Smith
-    amount: 123000,
-  },
-  {
-    id: "order_005",
-    customer: customers[1],
-    drugId: [drugs[2].id], // Paracetamol
-    quantity: 1,
-    createdAt: new Date("2024-10-11T14:30:00"),
-    user: users[1], // Dr. Thompson
-    amount: 123000,
-  },
-  {
-    id: "order_007",
-    customer: customers[2],
-    drugId: [drugs[3].id, drugs[4].id], // Azithromycin and Aspirin
-    quantity: 3,
-    createdAt: new Date("2024-10-10T09:45:00"),
-    user: users[2], // Dr. Nguyen
-    amount: 123000,
-  },
-];
+// Helper Functions
+function getRandomElement<T>(arr: T[]): T {
+  return arr[Math.floor(Math.random() * arr.length)];
+}
+
+function generateRandomQuantity(): number {
+  return Math.floor(Math.random() * 10) + 1; // Quantity between 1 and 10
+}
+
+function generateRandomAmount(items: OrderItem[]): number {
+  let total = 0;
+  items.forEach((item) => {
+    const drug = drugs.find((d) => d.id === item.drugId);
+    if (drug) {
+      total += drug.price * item.quantity;
+    }
+  });
+  return total;
+}
+
+// Arrays to store Orders and OrderItems
+export const orders: Order[] = [];
+
+// Generate 100 orders and corresponding order items
+for (let i = 0; i < 100; i++) {
+  const randomCustomer = getRandomElement(customers);
+  const randomUser = getRandomElement(users);
+
+  // Create random OrderItems
+  const randomDrugs = [
+    getRandomElement(drugs),
+    ...(Math.random() > 0.5 ? [getRandomElement(drugs)] : []), // Randomly select 1 or 2 drugs
+  ];
+
+  const orderItems: OrderItem[] = randomDrugs.map((drug, index) => ({
+    id: `item_${(i + 1).toString().padStart(3, "0")}_${index + 1}`,
+    orderId: `order_${(i + 1).toString().padStart(3, "0")}`,
+    drugId: drug.id,
+    quantity: generateRandomQuantity(),
+  }));
+
+  // Calculate total quantity and amount
+  const totalQuantity = orderItems.reduce(
+    (sum, item) => sum + item.quantity,
+    0
+  );
+  const totalAmount = generateRandomAmount(orderItems);
+
+  // Create the order
+  orders.push({
+    id: `order_${(i + 1).toString().padStart(3, "0")}`,
+    customer: randomCustomer,
+    items: orderItems,
+    quantity: totalQuantity,
+    createdAt: new Date(
+      2024,
+      Math.floor(Math.random() * 12),
+      Math.floor(Math.random() * 28) + 1,
+      Math.floor(Math.random() * 24),
+      Math.floor(Math.random() * 60)
+    ),
+    user: randomUser,
+    amount: totalAmount,
+  });
+}
+
+console.log(orders);

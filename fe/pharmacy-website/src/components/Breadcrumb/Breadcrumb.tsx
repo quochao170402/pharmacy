@@ -14,7 +14,7 @@ const Breadcrumb = () => {
       {pathname !== "/" && (
         <div className="flex items-center">
           {crumbs.map((crumb, index) => (
-            <div className="flex items-center">
+            <div key={index} className="flex items-center">
               <NavLink
                 className="hover:text-[#036bfc]"
                 key={index}

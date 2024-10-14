@@ -1,4 +1,5 @@
 import dayjs from "dayjs";
+import { useEffect, useState } from "react";
 import Pagination from "../../components/Pagination/Pagination";
 import Table, { ColumnProps } from "../../components/Table/Table";
 import Title from "../../components/Title/Title";
@@ -6,11 +7,32 @@ import { orders } from "../../types";
 import { Order } from "../../types/order";
 
 const defaultPageValue = {
-  pageSize: 10,
+  pageSize: 20,
   pageIndex: 1,
-  totalItems: 100,
 };
+
 const OrderPage = () => {
+  const [pagination, setPagination] = useState<{
+    pageSize: number;
+    pageIndex: number;
+  }>(defaultPageValue);
+
+  const [renderedOrders, setRenderedOrders] = useState(
+    orders.slice(
+      (pagination.pageIndex - 1) * pagination.pageSize,
+      pagination.pageIndex * pagination.pageSize
+    )
+  );
+
+  useEffect(() => {
+    setRenderedOrders(
+      orders.slice(
+        (pagination.pageIndex - 1) * pagination.pageSize,
+        pagination.pageIndex * pagination.pageSize
+      )
+    );
+  }, [pagination, orders]);
+
   const columns: Array<ColumnProps<Order>> = [
     {
       key: "id",
@@ -40,18 +62,20 @@ const OrderPage = () => {
       ),
     },
   ];
+  console.log("🚀 ~ OrderPage ~ renderedOrders:", renderedOrders);
+
   return (
     <>
       <Title title={"Đơn hàng"} />
       {/* Table */}
-      <Table data={orders} columns={columns} />
+      <Table data={renderedOrders} columns={columns} height={700} />
       {/* Pagination */}
       <Pagination
-        pageSize={defaultPageValue.pageSize}
-        pageIndex={defaultPageValue.pageIndex}
-        totalItems={defaultPageValue.totalItems}
-        onPageChange={() => {
-          console.log("Page change");
+        pageSize={pagination.pageSize}
+        pageIndex={pagination.pageIndex}
+        totalItems={orders.length}
+        onPageChange={(pageSize, pageIndex) => {
+          setPagination({ pageSize, pageIndex });
         }}
       />
     </>

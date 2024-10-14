@@ -3,6 +3,7 @@ import { ReactElement } from "react";
 interface Props<T> {
   columns: Array<ColumnProps<T>>;
   data?: T[];
+  height?: number;
 }
 
 export interface ColumnProps<T> {
@@ -11,7 +12,7 @@ export interface ColumnProps<T> {
   render?: (column: ColumnProps<T>, item: T, index?: number) => ReactElement;
 }
 
-const Table = <T,>({ data, columns }: Props<T>) => {
+const Table = <T,>({ data, columns, height }: Props<T>) => {
   const headers = columns.map((column, index) => {
     return <th key={`headCell-${index}`}>{column.title}</th>;
   });
@@ -42,13 +43,17 @@ const Table = <T,>({ data, columns }: Props<T>) => {
     })
   );
   return (
-    <div className="p-4 max-h-screen bg-white overflow-y-auto rounded-sm">
+    <div
+      className={`p-4 bg-white overflow-y-auto rounded-sm ${
+        height ? `h-[${height}px]` : "h-screen"
+      }`}
+    >
       <table className="table-auto w-full">
-        <thead className="text-left">
+        <thead className="text-left top-0 bg-red-600 sticky z-10">
           <tr>{headers}</tr>
         </thead>
 
-        <tbody>{rows}</tbody>
+        <tbody className="relative">{rows}</tbody>
       </table>
     </div>
   );

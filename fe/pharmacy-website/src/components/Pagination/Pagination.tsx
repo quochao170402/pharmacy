@@ -17,8 +17,6 @@ const Pagination = ({
   const [currentPageIndex, setCurrentPageIndex] = useState(pageIndex);
 
   const totalPage = Math.round(totalItems / pageSize);
-  console.log("🚀 ~ currentPageIndex:", currentPageIndex);
-  console.log("🚀 ~ totalPage:", totalPage);
 
   const handleBackward = () => {
     if (currentPageIndex === 1) return;
@@ -60,11 +58,7 @@ const Pagination = ({
 
     // Add "..." after the first page if necessary
     if (currentPageIndex > 3) {
-      pages.push(
-        <li key="start-dots" className="pagination-item">
-          ...
-        </li>
-      );
+      pages.push(<li key="start-dots">...</li>);
     }
 
     // Pages before and after the current page (range: current - 1 to current + 1)
@@ -88,11 +82,7 @@ const Pagination = ({
 
     // Add "..." before the last page if necessary
     if (currentPageIndex < totalPage - 2) {
-      pages.push(
-        <li key="end-dots" className="pagination-item">
-          ...
-        </li>
-      );
+      pages.push(<li key="end-dots">...</li>);
     }
 
     // Always show the last page

@@ -1,0 +1,56 @@
+version: '3.9'
+
+services:
+  mssql:
+    image: mcr.microsoft.com/mssql/server:2019-latest
+    user: root
+    container_name: mssql
+    environment:
+      - TZ=Asia/Ho_Chi_Minh
+      - ACCEPT_EULA=Y
+      - SA_PASSWORD=Quochao@123
+      - MSSQL_PID=Developer
+    volumes:
+      - dbdata:/var/opt/mssql/data
+    ports:
+      - "1433:1433"
+    restart: always
+    networks:
+      - pharmacy
+  
+  redis:
+    image: redis:latest
+    container_name: redis
+    environment:
+      - TZ=Asia/Ho_Chi_Minh
+    ports:
+      - "6379:6379"
+    restart: always
+    networks:
+      - pharmacy
+  
+#  meilisearch:
+#    container_name: meilisearch
+#    image: getmeili/meilisearch:v1.1.1
+#    environment:
+#      - TZ=Asia/Jakarta
+#      - MEILI_MASTER_KEY=5b9b8e6b23fdc6999583e126a2a8f271821668d9607a42bcc8ea7d86e587
+#      - MEILI_NO_ANALYTICS=true
+#      - MEILI_ENV=development
+#      - MEILI_DB_PATH=/data.ms
+#    ports:
+#      - "7700:7700"
+#    networks:
+#      - pharmacy
+#    volumes:
+#      - meili-data:/data.ms
+#    restart: unless-stopped
+
+networks:
+  pharmacy:
+    name: pharmacy
+    driver: bridge
+
+volumes:
+  dbdata:
+    driver: local

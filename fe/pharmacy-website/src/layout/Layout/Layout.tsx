@@ -20,7 +20,7 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
         />
       </div>
 
-      <div className="flex flex-col flex-1">
+      <div className="flex flex-col flex-1 max-h-screen h-screen">
         <Header />
 
         <main className="flex-1 p-6 bg-gray-100">
